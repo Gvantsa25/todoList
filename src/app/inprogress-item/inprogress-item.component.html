@@ -1,0 +1,10 @@
+<div id="toDoItems" class="oneUser">
+  <p>{{index+1}}. {{task.title}}</p>
+  <div id="toDoIcons">
+    <i class="fas fa-caret-square-left" (click)="leftEvent()"></i>
+    <i class="fas fa-caret-square-right" (click)="rightEvent()"></i>
+  </div>
+</div>
+<div id="complexity"
+  [ngStyle]="{'background-color':(task?.complexityValue == ComplexityEnum.easy) ? 'yellow' : (task?.complexityValue == ComplexityEnum.medium) ? 'green' : 'red'}">
+  {{ task.complexityValue }}</div>

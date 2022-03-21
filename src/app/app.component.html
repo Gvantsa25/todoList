@@ -1,0 +1,49 @@
+<div id="firstSection">
+  <input [(ngModel)]="myInput" type="text" />
+  <select [(ngModel)]="selectedComplexity" style="width: 100px">
+    <option selected [ngValue]="''" hidden>Select</option>
+    <option>{{complexityEnum.easy}}</option>
+    <option>{{complexityEnum.medium}}</option>
+    <option>{{complexityEnum.hard}}</option>
+  </select>
+  <button (click)="addItem()">Add new task</button>
+</div>
+
+<div id="containers">
+  <Section id="toDo">
+    <h1>To-do</h1>
+    <div id="secondPart">
+      <ng-container *ngIf="todoList.length; else emptyList">
+        <div id="todoElement" class="oneElement" *ngFor="let item of todoList; let i = index">
+          <app-todo-item [task]="item" [index]="i" (delete)="deleteItem($event)" (goRight)="moveRight($event)">
+          </app-todo-item>
+        </div>
+      </ng-container>
+    </div>
+  </Section>
+
+  <Section id="inProgress">
+    <h1>in Progress</h1>
+    <div id="secondPart">
+      <ng-container *ngIf="inProgressList.length; else emptyList">
+        <div id="inProgressElement" class="oneElement" *ngFor="let item of inProgressList; let i = index">
+          <app-inprogress-item [task]="item" [index]="i" (goRight)="moveRight($event)" (goLeft)="moveLeft($event)">
+          </app-inprogress-item>
+        </div>
+      </ng-container>
+    </div>
+  </Section>
+
+  <Section id="done">
+    <h1>Done</h1>
+    <div id="secondPart">
+      <ng-container *ngIf="doneList.length; else emptyList">
+        <div class="oneElement" id="inProgressElement" *ngFor="let item of doneList">
+          <app-done-item [task]="item" (goLeft)="moveLeft($event)"></app-done-item>
+        </div>
+      </ng-container>
+    </div>
+  </Section>
+</div>
+
+<ng-template #emptyList>List is empty</ng-template>
